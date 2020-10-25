@@ -1,0 +1,112 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+*:focus {
+  outline: none;
+}
+a:hover {
+  text-decoration: none;
+}
+.modal-header {
+  border-bottom: 0 none;
+}
+body {
+  background-color: rgba(223, 207, 190, 0.4);
+}
+h1 {
+  font-size: 64px;
+  font-family: "Dancing Script", cursive;
+  text-shadow: 2px 1px 2px #ffffff;
+}
+li {
+  list-style: none;
+}
+li .card {
+  border: none;
+  background-color: rgba(212, 189, 187, 0.4);
+}
+li .video-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+li .video-player {
+  position: absolute;
+}
+li .player-wrapper {
+  position: relative;
+}
+li .player-wrapper:hover {
+  cursor: pointer;
+}
+li .player-wrapper .cover {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  transition: all 0.2s;
+}
+li .player-wrapper .cover .play {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+li .player-wrapper .cover .play::before {
+  content: "\f144";
+  font-family: "Font Awesome 5 Free";
+  font-size: 8rem;
+  color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+li .player-wrapper .cover .pause {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+li .player-wrapper .cover .pause::before {
+  content: "\f28d";
+  font-family: "Font Awesome 5 Free";
+  font-size: 8rem;
+  color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+li .player-wrapper:hover .cover {
+  opacity: 1;
+}
+li img {
+  position: relative;
+}
+li img:hover {
+  cursor: pointer;
+}
+.modal #video-wrapper {
+  position: relative;
+}
+.modal #video-wrapper #video-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+}
+.modal video {
+  width: 100%;
+  max-width: 480px;
+}
+.modal button:focus {
+  outline: none;
+}
+.modal img {
+  max-height: 300px;
+}
