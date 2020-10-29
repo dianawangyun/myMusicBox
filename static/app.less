@@ -1,3 +1,4 @@
+// =============Global==============
 * {
     margin: 0;
     padding: 0;
@@ -14,6 +15,32 @@ a:hover {
 body {
     background-color: rgba(223, 207, 190, 0.4);
 }
+
+// ============Navbar================
+.navbar {
+    background-color: #6b5b95;
+    box-shadow: 0 0.5px 1px black;
+    .navbar-brand {
+        font-family: "Permanent Marker", cursive;
+        font-size: 24px;
+        padding: 0 20px 0 20px;
+        text-shadow: 1px 1px 3px #000000;
+    }
+    .navbar-toggler {
+        height: 30px;
+        width: 40px;
+        padding: 2px;
+        .navbar-toggler-icon {
+            height: 25px;
+            width: 20px;
+        }
+        .nav-item {
+            margin-right: 30px;
+        }
+    }
+}
+
+// ============SearchPage=============
 h1 {
     font-size: 64px;
     font-family: "Dancing Script", cursive;
@@ -110,6 +137,7 @@ li {
         outline: none;
     }
     img {
+        height: 100%;
         max-height: 300px;
     }
 }
