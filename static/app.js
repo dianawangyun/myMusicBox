@@ -23,7 +23,14 @@ async function showResults(e) {
 
 /* draw the search result onto page */
 function createResultsHTML(response) {
-    $("#results-list").html("");
+    $("#results-container").html("");
+    const $ul = $("<ul>").attr({
+        class:
+            "row d-flex justify-content-center justify-content-xl-start grid",
+        id: "results-list",
+    });
+    $("#results-container").append($ul);
+
     const resList = response.data;
     // when no matched results returned
     if (resList.length === 0) {
@@ -45,10 +52,13 @@ function createResultsHTML(response) {
                 $("#results-list").append(li.element);
             }
         }
-        $(".lazy").Lazy({
-            effect: "fadeIn",
-            effectTime: 2000,
-            threshold: 0,
+
+        $("#results-list").imagesLoaded(function () {
+            $("#results-list").masonry({
+                itemSelector: ".grid-item",
+                gutter: 50,
+                fitWidth: true,
+            });
         });
     }
 }
@@ -62,14 +72,17 @@ function setFavClick(li) {
     });
 }
 
-jQuery(document).ready(checkContainer);
+$(document).ready(function () {
+    checkFavPage();
+    checkTastePage();
+});
 
-function checkContainer() {
+function checkFavPage() {
     if ($("#my-fav-wrap").is(":visible")) {
         //if the container is visible on the page
         getFavList();
     } else {
-        setTimeout(checkContainer, 50); //wait 50 ms, then try again
+        setTimeout(checkFavPage, 50); //wait 50 ms, then try again
     }
 }
 
@@ -100,10 +113,12 @@ async function getFavList() {
                 $("#my-fav-wrap").append(li.element);
             }
         }
-        $(".lazy").Lazy({
-            effect: "fadeIn",
-            effectTime: 1000,
-            threshold: 0,
+        $("#results-list").imagesLoaded(function () {
+            $(".grid").masonry({
+                itemSelector: ".grid-item",
+                gutter: 50,
+                fitWidth: true,
+            });
         });
     }
 }
@@ -115,5 +130,66 @@ function setRemoveClick(li) {
         await li.updateFav();
         // refresh the search results
         getFavList();
+    });
+}
+
+function checkTastePage() {
+    if ($("#my-taste-wrap").is(":visible")) {
+        //if the container is visible on the page
+        getGenreList();
+    } else {
+        setTimeout(checkTastePage, 50); //wait 50 ms, then try again
+    }
+}
+
+async function getGenreList() {
+    const resp = await axios.get(`${BASE_URL}/tastedata`);
+    $("#my-taste-wrap").html("");
+    const resList = resp.data;
+    drawChart(resList);
+}
+
+function drawChart(resList) {
+    let myChart = echarts.init(document.querySelector("#my-taste-wrap"));
+    option = {
+        tooltip: {
+            trigger: "item",
+            formatter: "{a} <br/>{b}: {c} ({d}%)",
+        },
+        legend: {
+            orient: "horizontal",
+            left: "center",
+            itemGap: 15,
+            textStyle: {
+                fontSize: 14,
+            },
+        },
+        series: [
+            {
+                name: "Genre",
+                type: "pie",
+                radius: ["45%", "70%"],
+                avoidLabelOverlap: false,
+                label: {
+                    show: false,
+                    position: "center",
+                },
+                emphasis: {
+                    label: {
+                        show: true,
+                        fontSize: "24",
+                        fontWeight: "bold",
+                    },
+                },
+                labelLine: {
+                    show: false,
+                },
+                data: resList,
+            },
+        ],
+    };
+    myChart.setOption(option);
+    window.addEventListener("resize", function () {
+        myChart.resize();
     });
 }

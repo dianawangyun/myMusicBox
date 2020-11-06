@@ -53,6 +53,30 @@ class Song {
         $("#detail-modal").modal("show");
     }
 
+    createElement() {
+        let $li = $("<li/>")
+            .html(
+                `
+    <div class="card" style="width: 20rem;" class="mr-2 mb-2">
+    <div class="player-wrapper">
+      <img src="${this.artworkUrl}" class="card-img-top img-fluid max-height:100% rounded" alt="Album Cover">
+      <div class="cover">
+        <div class="cover-icon play"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">${this.trackName}</h5>
+      <p class="my-2">Artist: ${this.artistName}</p>
+      <p class="mb-4">Album: ${this.collectionName}</p>
+      <button type="button" class="btn btn-primary mr-4 detail">Check Details</button>
+    </div>
+  </div>`
+            )
+            .addClass("grid-item mb-4");
+        this.showAddFavorBtn($li);
+        return $li;
+    }
+
     /* check if the user is logged in and draw a favor button to logged in user */
     showAddFavorBtn($li) {
         if ($("#logout").length > 0) {
@@ -112,30 +136,6 @@ class SongMusic extends Song {
         });
     }
 
-    createElement() {
-        let $li = $("<li/>")
-            .html(
-                `
-    <div class="card" style="width: 20rem;" class="mr-2 mb-2">
-    <div class="player-wrapper">
-      <img data-src="${this.artworkUrl}" class="lazy card-img-top img-fluid max-height:100% rounded" alt="Album Cover">
-      <div class="cover">
-        <div class="cover-icon play"></div>
-      </div>
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">${this.trackName}</h5>
-      <p class="my-2">Artist: ${this.artistName}</p>
-      <p class="mb-4">Album: ${this.collectionName}</p>
-      <button type="button" class="btn btn-primary mr-4 detail">Check Details</button>
-    </div>
-  </div>`
-            )
-            .addClass("mb-4 mr-md-5");
-        this.showAddFavorBtn($li);
-        return $li;
-    }
-
     /* control the play and pause of audio player */
     initPlayer() {
         let $audio = $("#audio-player");
@@ -163,34 +163,9 @@ class SongVideo extends Song {
         this.element.find(".detail").click(() => {
             this.drawDetailPage();
         });
-
         this.element.find(".player-wrapper").click(() => {
             this.initPlayer();
         });
-    }
-
-    createElement() {
-        let $li = $("<li>")
-            .html(
-                `
-        <div class="card" style="width: 20rem;" class="mr-2">
-          <div class="player-wrapper">
-          <img data-src="${this.artworkUrl}" class="lazy card-img-top" alt="Album Cover">
-            <div class="cover">
-              <div class="cover-icon play"></div>
-            </div>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">${this.trackName}</h5>
-            <p class="my-2">Artist: ${this.artistName}</p>
-            <p class="mb-4">Album: ${this.collectionName}</p>
-            <button type="button" class="btn btn-primary mr-4 detail">Check Details</button>
-          </div>
-        </div>`
-            )
-            .addClass("mb-4 mr-md-5");
-        this.showAddFavorBtn($li);
-        return $li;
     }
 
     initPlayer() {

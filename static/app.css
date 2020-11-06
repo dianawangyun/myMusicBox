@@ -55,6 +55,9 @@ li .card {
   border: none;
   background-color: rgba(212, 189, 187, 0.4);
 }
+li .grid-item {
+  margin-bottom: 20px;
+}
 li .video-wrapper {
   position: relative;
   overflow: hidden;

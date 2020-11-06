@@ -3,6 +3,7 @@ import os
 from flask import Flask, render_template, request, jsonify, flash, redirect, session, g
 from flask import session, make_response
 
+from sqlalchemy import func, desc
 from sqlalchemy.exc import IntegrityError
 import requests
 
@@ -130,7 +131,7 @@ def logout():
 
 @app.route("/search", methods=["GET", "POST"])
 def search_music():
-    """render search page with get request and return JSON result back with post request"""
+    """Render search page with get request and return JSON result back with post request."""
 
     if request.method == 'POST':
         req = request.json
@@ -143,7 +144,7 @@ def search_music():
 
 @app.route("/update-fav", methods=["POST"])
 def update_fav():
-    """handle add/remove favorite"""
+    """Handle add/remove favorite."""
 
     if not g.user:
         flash("Access unauthorized.", "danger")
@@ -172,7 +173,7 @@ def update_fav():
 
 @app.route("/favoriteslist")
 def get_my_favoriteslist():
-    """return user favorite list from database"""
+    """Return user favorite list from database."""
 
     if not g.user:
         flash("Access unauthorized.", "danger")
@@ -185,7 +186,7 @@ def get_my_favoriteslist():
 
 @app.route("/favorites")
 def get_my_favorites():
-    """render user favorite list page"""
+    """Render user favorite list page."""
 
     if not g.user:
         flash("Access unauthorized.", "danger")
@@ -194,7 +195,38 @@ def get_my_favorites():
         return render_template("favorite.html")
 
 
-@app.errorhandler(404)
+@app.route("/taste")
+def get_my_taste():
+    """Render user taste page."""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+    else:
+        return render_template("taste.html")
+
+
+@app.route("/tastedata")
+def get_my_taste_data():
+    """Return user taste data in json format."""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+    user = User.query.get_or_404(g.user.id)
+
+    taste_res = db.session.query(Song.primaryGenreName, func.count(Favors.song_id).label("frequency")).join(
+        Favors, Song.trackId == Favors.song_id).filter(Favors.user_id == user.id).group_by(Song.primaryGenreName).order_by(desc("frequency")).all()
+    res = []
+    for ele in taste_res:
+        resp = {}
+        resp["value"] = ele.frequency
+        resp["name"] = ele.primaryGenreName
+        res.append(resp)
+    return jsonify(res)
+
+
+@ app.errorhandler(404)
 def page_not_found(e):
     """Show 404 NOT FOUND page."""
 
@@ -202,7 +234,7 @@ def page_not_found(e):
 
 
 def serialize_response(res):
-    """return data get from API with desired format"""
+    """Return data get from API with desired format."""
 
     if g.user:
         favs_id = [fav.song_id for fav in g.user.favors]
@@ -238,7 +270,7 @@ def serialize_response(res):
 
 
 def serialize_database(data):
-    """return data get from database with desired format"""
+    """Return data get from database with desired format."""
 
     return {
         'kind': data.kind,
