@@ -2,10 +2,16 @@
 %} {% block content %}
 <h1 class="text-center mb-5 mt-4">My Favorites List</h1>
 
-<div class="container d-flex justify-content-center">
-    <ul
+<div class="container d-flex justify-content-center" id="my-fav-wrap">
+    <!-- <ul
         id="my-fav-wrap"
         class="row d-flex justify-content-center justify-content-xl-start grid"
-    ></ul>
+    ></ul> -->
 </div>
+{% endblock %} {% block script %}
+<script>
+    $(document).ready(function () {
+        getFavList();
+    });
+</script>
 {% endblock %}

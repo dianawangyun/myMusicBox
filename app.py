@@ -80,7 +80,7 @@ def signup():
             return render_template('signup.html', form=form)
 
         do_login(user)
-
+        flash(f"Thanks for signing up, {user.username}", 'success')
         return redirect("/")
 
     else:

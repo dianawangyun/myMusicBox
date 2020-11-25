@@ -91,22 +91,22 @@ class Song {
                 $favBtn.attr("class", "btn btn-danger favor");
                 $icon.attr("class", "fas fa-heart");
             }
+            $favBtn.on("click", async () => {
+                await this.updateFav();
+                this.changeBtnStyle();
+                await getFavList();
+            });
         }
-    }
-
-    /* remove isFavor and element from "this" before sending to backend */
-    toJSON() {
-        const data = { ...this };
-        delete data.isFavor;
-        delete data.element;
-        return data;
     }
 
     /* save user favor to database */
     async updateFav() {
         try {
             const data = this;
-            const response = await axios.post(`${BASE_URL}/update-fav`, data);
+            const response = await axios.post(
+                `${config.BASE_URL}/update-fav`,
+                data
+            );
             // console.log(response.data);
             this.isFavor = !this.isFavor;
         } catch (err) {
@@ -120,6 +120,14 @@ class Song {
         let $icon = $favBtn.find("i");
         $favBtn.toggleClass("btn-danger btn-outline-danger");
         $icon.toggleClass("fas far");
+    }
+
+    /* remove isFavor and element from "this" before sending to backend */
+    toJSON() {
+        const data = { ...this };
+        delete data.isFavor;
+        delete data.element;
+        return data;
     }
 }
 
