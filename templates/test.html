@@ -1,0 +1,27 @@
+{% extends template_to_test %} {% block link %}
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.3.0/jasmine.css"
+/>
+{% endblock %} {% block jasmine %}
+<script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.3.0/jasmine.js"
+></script>
+<script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.3.0/jasmine-html.js"
+></script>
+<script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.3.0/boot.js"
+></script>
+{% endblock %} {% block script %} {% if template_to_test=="search.html"%}
+<script type="text/javascript" src="../static/app.test.js"></script>
+<script type="text/javascript" src="../static/classes.test.js"></script>
+{% elif template_to_test=="favorite.html" %}
+<script type="text/javascript" src="../static/favorite.test.js"></script>
+{% elif template_to_test=="taste.html" %}
+<script type="text/javascript" src="../static/taste.test.js"></script>
+{% endif %} {% endblock %}

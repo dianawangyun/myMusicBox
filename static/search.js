@@ -20,6 +20,7 @@ async function searchMusic(e) {
 /* draw the search result onto page */
 function showResult(response) {
     const resList = response.data;
+    console.log(response.data);
     drawResultList(
         $("#results-container"),
         resList,

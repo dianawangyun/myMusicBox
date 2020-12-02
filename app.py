@@ -226,6 +226,11 @@ def get_my_taste_data():
     return jsonify(res)
 
 
+@app.route("/test/<file_name>")
+def render_test_page(file_name):
+    return render_template("test.html", template_to_test=file_name + ".html")
+
+
 @ app.errorhandler(404)
 def page_not_found(e):
     """Show 404 NOT FOUND page."""
