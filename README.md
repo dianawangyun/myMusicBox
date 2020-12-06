@@ -12,30 +12,21 @@ Technology stacks used in this app:
 
 - Database: PostgreSQL
 
-## Interface
-
-
-
-**Search page**
-
-![image-20201206111433181](C:\Users\w_wan\AppData\Roaming\Typora\typora-user-images\image-20201206111433181.png)
-
-**Favorite page**
-
-![image-20201206113002040](C:\Users\w_wan\AppData\Roaming\Typora\typora-user-images\image-20201206113002040.png)
-
-**user taste page**
-
-![image-20201206113247931](C:\Users\w_wan\AppData\Roaming\Typora\typora-user-images\image-20201206113247931.png)
-
-
-
 ## Setup
 
 1. Use the requirements.txt to install all the dependencies
-2. open seed.py and config the user name and password, then run this file to initiate the database
+2. open seed.py and config the user name and password to your postgreSQL, then run this file to initiate the database
 
 ## URL to this repository
 
 https://github.com/dianawangyun/myMusicBox
 
+## Heroku URL
+
+https://my-music-box-wy.herokuapp.com/
+
+The following test account could be used to have quick access to the features.
+
+Username: test
+
+password: 123456
