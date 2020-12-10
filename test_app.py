@@ -92,6 +92,17 @@ class UserTestCase(TestCase):
             self.assertEqual(resp.status_code, 200)
             self.assertIn('Username already taken', html)
 
+    def test_show_login_page(self):
+        "test render login page"
+
+        with self.client as c:
+            resp = c.get('/login')
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn(
+                '<h1 class="text-center my-5">Welcome back</h1>', html)
+
     def test_user_login(self):
         "test existing user login"
 
