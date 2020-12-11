@@ -15,7 +15,15 @@ Technology stacks used in this app:
 ## Setup
 
 1. Use the requirements.txt to install all the dependencies
-2. open seed.py and config the user name and password to your postgreSQL, then run this file to initiate the database
+   1. make sure pip is installed (if not please download and install [python3](https://www.python.org/downloads/) first)
+   2. open a command line console, cd to the folder of the app, create a virtual environment(highly recommended if possible), then run the command "pip install -r requirements.txt"
+2. Config the seed.py and start the server
+   1. make sure postgreSQL is installed and setup (if not please download and install [postgreSQL](https://www.postgresql.org/download/) first)
+   2. open seed.py inside the app folder, set the value on line 6 and 7 to your user name and password for postgreSQL
+   3. go back to the command line console, run the command "flask run" to start the server
+3. Access the app via a browser
+   1. Open Chrome or other browser, type in "127.0.0.1:5000" or "localhost:5000" in the address bar
+   2. find your favorites!
 
 ## URL to this repository
 
